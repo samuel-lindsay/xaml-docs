@@ -40,7 +40,7 @@ The __VisualizationLayer__ exposes the following properties which are related to
 
 * __GenerateClustersOnZoom__: A property of type __bool__ that gets or sets value which indicates whether clusters should be re-generated when the zoom level is changed. The default value of this property is __true__.            
 
-In order to enable the __Clustering__ feature you can specify just the __ClusteringEnabled__ property to __true__. Also you can configure the __ItemTemplate__ and __ClusterItemTemplate__ properties for customizing the appearance of the item and of the cluster.        
+In order to enable the __Clustering__ feature you can specify just the __ClusteringEnabled__ property to __true__. Also you can configure the __ItemTemplate__ and __ClusterItemTemplate__ properties for customizing the appearance of the item and of the cluster.         
 
 More information about using of the __ItemTemplate__ property you can find in the [Data Binding]({%slug radmap-visualization-layer-data-binding%}) article.        
 
