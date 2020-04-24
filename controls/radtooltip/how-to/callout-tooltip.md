@@ -6,6 +6,6 @@ slug: radtooltip-howto-callout-tooltip
 tags: radtooltip,callout
 published: True
 position: 0
----
+--- 
 
 # Use Callout with RadToolTip
