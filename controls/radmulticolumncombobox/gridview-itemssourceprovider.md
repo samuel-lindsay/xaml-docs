@@ -96,6 +96,33 @@ The example below shows how to set the **ContextMenu** property of **GridVIewIte
 #### __Figure 1: Result of Example 1__
 ![RadMultiColumnComboBox with custom context menu](images/MultiColumnComboBox_GridViewItemsSourceProvider_01.png)
 
+## Search in Hidden Columns
+
+__RadMultiColumnComboBox__ text search mechanism supports searching in hidden columns. This behavior can be enabled by setting the __CanUserSearchInHiddenColumns__ property of the __GridViewItemsSourceProvider__ control to __True__.
+
+>important This feature was first introduced with the non-official version __2020.2.727__ of __R2 2020__. Afterward, it was included in __R3 2020__ official release of the __Telerik UI for WPF__ suite.
+
+## Exclude Column from Search
+
+> More information can be found in the [Exclude Column from Search]({%slug gridview-how-to-exclude-column-from-search%})
+
+The __RadMultiColumnComboBox__ provides a way to excluded columns from its search mechanism. This can be achieved through __IsSearchable__ property of the columns defined in the __GridViewItemsSourceProvider__. __Example 2__ demonstrates how you can exclude the first column.
+
+#### __[XAML] Example 2: Exclude Column from Search__
+{{region xaml-radmulticolumncombobox--gridview-itemssourceprovider-1}}
+	<telerik:RadMultiColumnComboBox x:Name="mccb" DisplayMemberPath="Name" >          
+		<telerik:RadMultiColumnComboBox.ItemsSourceProvider>
+			<telerik:GridViewItemsSourceProvider ItemsSource="{Binding Data}" AutoGenerateColumns="False" >
+				<telerik:GridViewItemsSourceProvider.Columns>
+					<telerik:GridViewDataColumn DataMemberBinding="{Binding Name}" IsSearchable="False" />
+					<telerik:GridViewDataColumn DataMemberBinding="{Binding Description}"/>
+					<telerik:GridViewDataColumn DataMemberBinding="{Binding Information}"/>
+				</telerik:GridViewItemsSourceProvider.Columns>
+			</telerik:GridViewItemsSourceProvider>
+		</telerik:RadMultiColumnComboBox.ItemsSourceProvider>            
+	</telerik:RadMultiColumnComboBox>
+{{endregion}}
+
 ## See Also  
 * [Getting Started]({%slug multicolumncombobox-getting-started%})
 * [DropDown Properties]({%slug multicolumncombobox-dropdown-properties%})
