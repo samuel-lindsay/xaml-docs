@@ -331,17 +331,15 @@ And setting __RadTreeView's ItemsSource__ property in XAML:
 #### __XAML__
 
 {{region radtreeview-howto-bind-hierarchical-data-style-binding_8}}
-	<UserControl.Resources>
-	    <example:DataSource x:Key="TreeViewDataSource"/>
-	</UserControl.Resources>
+	<UserControl.DataContext>
+	    <example:DataSource/>
+	</UserControl.DataContext>
 {{endregion}}
 
 #### __XAML__
 
 {{region radtreeview-howto-bind-hierarchical-data-style-binding_9}}
-	<telerik:RadTreeView  Margin="8"
-	    SelectionMode="Multiple"      
-	    ItemsSource="{Binding Source={StaticResource TreeViewDataSource}}"/>
+	<telerik:RadTreeView  Margin="8" SelectionMode="Multiple" ItemsSource="{Binding}"/>
 {{endregion}}
 
 Now it is time to define how each level of the __RadTreeView__ will look like. You should use __HierarchicalDataTemplate__.
@@ -351,24 +349,26 @@ Now it is time to define how each level of the __RadTreeView__ will look like. Y
 #### __XAML__
 
 {{region radtreeview-howto-bind-hierarchical-data-style-binding_10s}}
-	<!--Data template for the Person object-->
-	<DataTemplate x:Key="PersonTemplate">
-	    <TextBlock Text="{Binding Name}" Foreground="Red" FontSize="16" FontFamily="Verdana" />
-	</DataTemplate>
-	<!--Data template for the Department object-->
-	<telerik:HierarchicalDataTemplate  
-	    x:Key="DepartmentTemplate"  
-	    ItemTemplate="{StaticResource PersonTemplate}" 
-	    ItemsSource="{Binding Employees}">
-	    <TextBlock Text="{Binding Name}" Foreground="Blue" FontSize="22" FontFamily="Verdana" />
-	</telerik:HierarchicalDataTemplate>
-	<!--Data template for the Organization object-->
-	<telerik:HierarchicalDataTemplate  
-	    x:Key="OrganizationTemplate"  
-	    ItemTemplate="{StaticResource DepartmentTemplate}" 
-	    ItemsSource="{Binding Departments}">
-	    <TextBlock Text="{Binding Name}" Foreground="Green" FontSize="28" FontFamily="Verdana" />
-	</telerik:HierarchicalDataTemplate>
+	<UserControl.Resources>
+		<!--Data template for the Person object-->
+		<DataTemplate x:Key="PersonTemplate">
+			<TextBlock Text="{Binding Name}" Foreground="Red" FontSize="16" FontFamily="Verdana" />
+		</DataTemplate>
+		<!--Data template for the Department object-->
+		<telerik:HierarchicalDataTemplate  
+			x:Key="DepartmentTemplate"  
+			ItemTemplate="{StaticResource PersonTemplate}" 
+			ItemsSource="{Binding Employees}">
+			<TextBlock Text="{Binding Name}" Foreground="Blue" FontSize="22" FontFamily="Verdana" />
+		</telerik:HierarchicalDataTemplate>
+		<!--Data template for the Organization object-->
+		<telerik:HierarchicalDataTemplate  
+			x:Key="OrganizationTemplate"  
+			ItemTemplate="{StaticResource DepartmentTemplate}" 
+			ItemsSource="{Binding Departments}">
+			<TextBlock Text="{Binding Name}" Foreground="Green" FontSize="28" FontFamily="Verdana" />
+		</telerik:HierarchicalDataTemplate>
+	</UserControl.Resources>
 {{endregion}}
 
 {% endif %}
@@ -376,22 +376,24 @@ Now it is time to define how each level of the __RadTreeView__ will look like. Y
 #### __XAML__
 
 {{region radtreeview-howto-bind-hierarchical-data-style-binding_10}}
-	<!--Data template for the Person object-->
-	<DataTemplate  DataType="{x:Type sampleData:Person}">  
-	    <TextBlock Text="{Binding Name}" Foreground="Red" FontSize="16" FontFamily="Verdana" />
-	</DataTemplate>
-	
-	<!--Data template for the Department object-->
-	<HierarchicalDataTemplate DataType="{x:Type sampleData:Department}"
-	    ItemsSource="{Binding Employees}">  
-	    <TextBlock Text="{Binding Name}" Foreground="Blue" FontSize="22" FontFamily="Verdana" />
-	</HierarchicalDataTemplate>
-	
-	<!--Data template for the Organization object-->
-	<HierarchicalDataTemplate  DataType="{x:Type sampleData:Organization}"  
-	    ItemsSource="{Binding Departments}">
-	    <TextBlock Text="{Binding Name}" Foreground="Green" FontSize="28" FontFamily="Verdana" />
-	</HierarchicalDataTemplate>
+	<Window.Resources>
+		<!--Data template for the Person object-->
+		<DataTemplate  DataType="{x:Type sampleData:Person}">  
+			<TextBlock Text="{Binding Name}" Foreground="Red" FontSize="16" FontFamily="Verdana" />
+		</DataTemplate>
+		
+		<!--Data template for the Department object-->
+		<HierarchicalDataTemplate DataType="{x:Type sampleData:Department}"
+			ItemsSource="{Binding Employees}">  
+			<TextBlock Text="{Binding Name}" Foreground="Blue" FontSize="22" FontFamily="Verdana" />
+		</HierarchicalDataTemplate>
+		
+		<!--Data template for the Organization object-->
+		<HierarchicalDataTemplate  DataType="{x:Type sampleData:Organization}"  
+			ItemsSource="{Binding Departments}">
+			<TextBlock Text="{Binding Name}" Foreground="Green" FontSize="28" FontFamily="Verdana" />
+		</HierarchicalDataTemplate>
+	</Window.Resources>
 {{endregion}}
 
 But what if you want to expand only the "Silverlight" node and to select the "John" node, leaving the WPF node collapsed. This is where the Style Binding comes in hand.	
@@ -401,12 +403,13 @@ Define a new style with __RadTreeViewItem__ for target type.
 {% if site.site_name == 'Silverlight' %}
 
 #### __XAML__
-
 {{region radtreeview-howto-bind-hierarchical-data-style-binding_11s}}
-	<Style x:Key="ItemContainerStyle" TargetType="{telerik:RadTreeViewItem}">
-	    <Setter Property="IsSelected" Value="{Binding Path=Selected}"/>
-	    <Setter Property="IsExpanded" Value="{Binding Path=Expanded}"/>
-	</Style>
+	<UserControl.Resources>
+		<Style x:Key="ItemContainerStyle" TargetType="{telerik:RadTreeViewItem}">
+			<Setter Property="IsSelected" Value="{Binding Path=Selected}"/>
+			<Setter Property="IsExpanded" Value="{Binding Path=Expanded}"/>
+		</Style>
+	</UserControl.Resources>	
 {{endregion}}
 
 {% endif %}
@@ -414,82 +417,82 @@ Define a new style with __RadTreeViewItem__ for target type.
 #### __XAML__
 
 {{region radtreeview-howto-bind-hierarchical-data-style-binding_11}}
-	<Style x:Key="ItemContainerStyle" TargetType="{x:Type telerik:RadTreeViewItem}">
-	    <Setter Property="IsSelected" Value="{Binding Path=Selected}"/>
-	    <Setter Property="IsExpanded" Value="{Binding Path=Expanded}"/>
-	</Style>
+	<Window.Resources>
+		<Style x:Key="ItemContainerStyle" TargetType="{x:Type telerik:RadTreeViewItem}">
+			<Setter Property="IsSelected" Value="{Binding Path=Selected}"/>
+			<Setter Property="IsExpanded" Value="{Binding Path=Expanded}"/>
+		</Style>
+	</Window.Resources>	
 {{endregion}}
 
 Find your treeview declaration and set the __ItemContainerStyle__ property.
 
 #### __XAML__
-
 {{region radtreeview-howto-bind-hierarchical-data-style-binding_12}}
-	<telerik:RadTreeView  Margin="8"
-	    SelectionMode="Multiple"      
-	    ItemsSource="{Binding Source={StaticResource TreeViewDataSource}}"
-	    ItemContainerStyle="{StaticResource ItemContainerStyle}"/>
+	<telerik:RadTreeView  Margin="8" SelectionMode="Multiple" ItemsSource="{Binding }" ItemContainerStyle="{StaticResource ItemContainerStyle}"/>
 {{endregion}}
 
 As you can see, the __IsSelected__ property of each __RadTreeViewItem__ is bound to the __Selected__ property in the data source. The same is with the __IsExpanded__ property. That's why now you have to update your data source.
 
 #### __C#__
-
 {{region radtreeview-howto-bind-hierarchical-data-style-binding_13}}
-	public DataSource()
-	{
-	    Organization telerik = new Organization()
-	    {
-	        Name = "Telerik",
-	        Expanded = true,
-	        Selected = false
-	    };
-	    Department silverlight = new Department()
-	    {
-	        Name = "Silverlight",
-	        Expanded = true,
-	        Selected = false
-	    };
-	    Department wpf = new Department()
-	    {
-	        Name = "WPF",
-	        Expanded = false,
-	        Selected = false
-	    };
-	    telerik.Departments.Add( silverlight );
-	    telerik.Departments.Add( wpf );
-	    silverlight.Employees.Add( new Person()
-	    {
-	        Name = "John",
-	        Selected = true
-	    } );
-	    silverlight.Employees.Add( new Person()
-	    {
-	        Name = "Ben",
-	        Selected = false
-	    } );
-	    silverlight.Employees.Add( new Person()
-	    {
-	        Name = "Ann",
-	        Selected = false
-	    } );
-	    wpf.Employees.Add( new Person()
-	    {
-	        Name = "Karoline",
-	        Selected = false
-	    } );
-	    wpf.Employees.Add( new Person()
-	    {
-	        Name = "Simone",
-	        Selected = false
-	    } );
-	    wpf.Employees.Add( new Person()
-	    {
-	        Name = "Eduard",
-	        Selected = false
-	    } );
-	    this.Add( telerik );
-	}
+	public class DataSource : List<Organization>
+    {
+		public DataSource()
+		{
+			Organization telerik = new Organization()
+			{
+				Name = "Telerik",
+				Expanded = true,
+				Selected = false
+			};
+			Department silverlight = new Department()
+			{
+				Name = "Silverlight",
+				Expanded = true,
+				Selected = false
+			};
+			Department wpf = new Department()
+			{
+				Name = "WPF",
+				Expanded = false,
+				Selected = false
+			};
+			telerik.Departments.Add( silverlight );
+			telerik.Departments.Add( wpf );
+			silverlight.Employees.Add( new Person()
+			{
+				Name = "John",
+				Selected = true
+			} );
+			silverlight.Employees.Add( new Person()
+			{
+				Name = "Ben",
+				Selected = false
+			} );
+			silverlight.Employees.Add( new Person()
+			{
+				Name = "Ann",
+				Selected = false
+			} );
+			wpf.Employees.Add( new Person()
+			{
+				Name = "Karoline",
+				Selected = false
+			} );
+			wpf.Employees.Add( new Person()
+			{
+				Name = "Simone",
+				Selected = false
+			} );
+			wpf.Employees.Add( new Person()
+			{
+				Name = "Eduard",
+				Selected = false
+			} );
+			this.Add( telerik );
+		}
+	}	
 {{endregion}}
 
 #### __VB.NET__
