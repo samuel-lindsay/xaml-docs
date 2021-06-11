@@ -107,7 +107,7 @@ To bind the __RadPivotMap__ you should use the *__GroupDefinition__* collection 
 {{endregion}}
 
 #### __Figure 1__
-![Telerik {{ site.framework_name }} PivotMap](images/radpivotmap-databinding.png)
+![Telerik {{ site.framework_name }} PivotMap](images/radpivotmap-databinding.png) 
 
 You can bind the RadPivotMap to any source that implements one of the following interfaces:
 
